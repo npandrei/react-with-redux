@@ -8,7 +8,7 @@ import { createHistory, createHashHistory } from 'history';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
 export function navigateTo(param) {
-    const { url = '', query = {}, state = {}, fullReload = false, delay = 100 } = param;
+    const { url = '', query = {}, state = {} } = param;
 
     const pushObj = {
         pathname: url,
@@ -16,36 +16,12 @@ export function navigateTo(param) {
         query
     }
 
-    if (!fullReload) {
-        return push(pushObj);
-    } else {
-        let newUrl = location;
-        const keys = Object.keys(query);
-        if (keys.length > 0) {
-            newUrl += '?';
-        }
-
-        for (let i = 0; i < keys.length; i++) {
-            const key = keys[i];
-            newUrl += encodeURIComponent(key) + '=' + encodeURIComponent(query[key]);
-
-            if (i < keys.length - 1) {
-                newUrl += '&';
-            }
-        }
-
-        return (dispatcher) => {
-            setTimeout(() => {
-                    _APP.goToPage(newUrl, true);    
-                },
-                delay);
-        }
-    }
+    return push(pushObj);
 }
 
 export function configureApp(containerId, routes, reducer) {
     if (document.getElementById(containerId)) {
-        let history = useRouterHistory(createHistory)({ basename: '/' });
+        let history = useRouterHistory(createHashHistory)({ basename: '/' });
         let middleware = routerMiddleware(history);
         let store = applyMiddleware(thunk, middleware)(createStore)(reducer);
         history = syncHistoryWithStore(history, store);

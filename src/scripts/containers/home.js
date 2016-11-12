@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import App from '../components/app.jsx';
+import Home from '../components/home.jsx';
 
 // pass the store properties to the component 
 const mapStateToProps = function (store) {
+    const { content = {} } = store;
+    const { home = '' } = content;
+
     return {
+        text: home
     };
 }
 
@@ -14,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 // create the component
-var AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+var HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home);
 
-export default AppContainer;
+export default HomeContainer;
