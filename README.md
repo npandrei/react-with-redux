@@ -1,6 +1,6 @@
 # react-with-redux
 
-This repo contains a simple application that uses react & redux
+This repo contains a simple application that uses react, redux and react-router.
 
 # running the project
 
