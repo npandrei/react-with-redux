@@ -13,3 +13,5 @@ npm install webpack -g
 Then you can run the project by using:
 
 npm start
+
+and then access http://localhost:8080
